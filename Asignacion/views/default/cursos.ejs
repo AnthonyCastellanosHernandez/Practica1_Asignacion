@@ -1,0 +1,94 @@
+<% include layout %>
+<div class="row">
+  <div class="page-header">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <h2>Lista de cursos</h2>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>curso</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody data-bind="foreach: cursoes">
+        <tr>
+          <td data-bind="text: nombre"></td>
+           <td>
+             <div class="btn-group"> <button style="margin-right:20px;"class="btn btn-primary"
+                    data-toggle="modal"
+                    data-target="#modalEditarPrioridad"
+                    data-bind="click: $root.editar">
+                    Editar </button>
+                    <button style="margin-right:20px;" class="btn btn-danger"
+                        data-bind="click: $root.eliminar" onclick="location.href = 'http://localhost:3000/Cursos';">Eliminar</button>
+                    </div>
+                </td>
+        </tr>
+      </tbody>
+    </table>
+    <button type="button" class="btn btn-danger waves-effect" data-toggle="modal" data-target="#modalcurso">
+        Agregar
+    </button>
+    <div class="modal fade" id="modalcurso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="/api/curso" method="post">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Agregar</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" name="nombre" id="nombre"/>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+     <div class="modal fade" id="modalGrupoEditar" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" data-bind="if: cursoCargado">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form data-bind="submit: editar">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Editar Curso</h4>
+                    </div>
+                  <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" name="nombre" id="nombre"
+                            data-bind="value: cursoCargado().nombre"
+                            />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Editar</button>
+                    </div>
+                </form>
+            </div>
+ </div>
+</div>
+
+
+  </div>
+</div>
+<% include footer %>
+<script src="/javascripts/cursoScript.js"></script>
